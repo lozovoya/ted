@@ -1,0 +1,39 @@
+CREATE EXTENSION pgcrypto;
+
+CREATE TABLE users
+(
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    isActive BOOLEAN DEFAULT false NOT NULL,
+    created  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE accounts
+(
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    owner UUID NOT NULL REFERENCES users,
+    balance INT DEFAULT 0,
+    isActive BOOLEAN DEFAULT false NOT NULL,
+    created  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE transactions_types
+(
+    id BIGSERIAL PRIMARY KEY,
+    type VARCHAR(20)
+);
+
+CREATE TABLE transactions
+(
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    type BIGINT NOT NULL REFERENCES transactions_types,
+    source UUID NOT NULL DEFAULT 0,
+    dest UUID NOT NULL DEFAULT 0,
+    amount BIGINT NOT NULL DEFAULT 0,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
