@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  teddb:
+    image: postgres:12.8-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_USER=app
+      - POSTGRES_DB=teddb
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
+  ted:
+    build: .
+    depends_on:
+      - teddb
+    command: sh -c "/ted && /ted/ted"
+    environment:
+        WAIT_HOSTS: teddb:5432
+        WAIT_HOSTS_TIMEOUT: 30
+        WAIT_SLEEP_INTERVAL: 10
+        WAIT_HOST_CONNECT_TIMEOUT: 30
+        WAIT_LOGGER_LEVEL: debug
+    ports:
+      - 9999:9999
+
+
+

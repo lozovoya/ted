@@ -16,7 +16,7 @@ func NewUserRepo(pool *pgxpool.Pool) User {
 }
 
 func (u userRepo) AddUser(ctx context.Context, user model.User) (model.User, error) {
-	panic("implement me")
+	dbReq := "INSERT INTO "
 }
 
 func (u userRepo) GetUserByID(ctx context.Context, userID string) (model.User, error) {
