@@ -14,15 +14,16 @@ services:
     build: .
     depends_on:
       - teddb
-    command: sh -c "/ted && /ted/ted"
-    environment:
-        WAIT_HOSTS: teddb:5432
-        WAIT_HOSTS_TIMEOUT: 30
-        WAIT_SLEEP_INTERVAL: 10
-        WAIT_HOST_CONNECT_TIMEOUT: 30
-        WAIT_LOGGER_LEVEL: debug
+#    command: sh -c "/ted && /ted/ted"
+#    environment:
+#        WAIT_HOSTS: teddb:5432
+#        WAIT_HOSTS_TIMEOUT: 30
+#        WAIT_SLEEP_INTERVAL: 10
+#        WAIT_HOST_CONNECT_TIMEOUT: 30
+#        WAIT_LOGGER_LEVEL: debug
     ports:
       - 9999:9999
+
 
 
 

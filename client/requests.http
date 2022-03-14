@@ -1,0 +1,85 @@
+###добавление пользователя
+
+POST http://localhost:9999/api/v1/users/add
+Content-Type: application/json
+
+{
+  "name":"user1",
+  "password": "pass1",
+  "is_identified": true,
+  "is_active": true
+}
+
+> {%
+  client.global.set("userid", response.body.id);
+%}
+
+### проверка существования пользователя
+
+POST http://localhost:9999/api/v1/users/get
+Content-Type: application/json
+
+{
+  "id":"uuu"
+}
+
+### добавить аккаунт
+POST http://localhost:9999/api/v1/accounts/add
+Content-Type: application/json
+
+{
+  "owner": "e9438a3a-ac11-4625-8f3b-31f964f40688",
+  "is_active": true
+}
+
+### добавить второй аккаунт
+POST http://localhost:9999/api/v1/accounts/add
+Content-Type: application/json
+
+{
+  "owner": "8d75b7d6-a243-4eea-9355-4129ad88f18f",
+  "is_active": true
+}
+
+### проверить существование аккаунта
+POST http://localhost:9999/api/v1/accounts/isexist
+Content-Type: application/json
+
+{
+  "id": "8d760f1e-23df-4381-9ba9-d6eaebdfff0b"
+}
+
+### проверить баланс аккаунта
+POST http://localhost:9999/api/v1/accounts/balance
+Content-Type: application/json
+
+{
+  "id": "8d760f1e-23df-4381-9ba9-d6eaebdfff0a"
+}
+
+### пополнить аккаунт
+POST http://localhost:9999/api/v1/transactions/refill
+Content-Type: application/json
+
+{
+  "dest": "8d760f1e-23df-4381-9ba9-d6eaebdfff0a",
+  "amount": 5000
+}
+
+### трансфер между аккаунтами
+POST http://localhost:9999/api/v1/transactions/transfer
+Content-Type: application/json
+
+{
+  "dest": "bc72db74-b2be-47a5-b2bd-b290d678078e",
+  "source": "8d760f1e-23df-4381-9ba9-d6eaebdfff0a",
+  "amount": 3000
+}
+
+### список транзакций текущего месяца
+POST http://localhost:9999/api/v1/transactions/get
+Content-Type: application/json
+
+{
+  "account": "bc72db74-b2be-47a5-b2bd-b290d678078e"
+}

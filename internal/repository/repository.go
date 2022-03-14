@@ -22,5 +22,5 @@ type Account interface {
 type Transaction interface {
 	Refill(ctx context.Context, dest string, amount int) (model.Transaction, error)
 	Transfer(ctx context.Context, source string, dest string, amount int) (model.Transaction, error)
-	GetCurrentMonthTransactionsByAccountID(ctx context.Context, accountID string) (*[]model.Transaction, error)
+	GetCurrentMonthTransactionsByAccountID(ctx context.Context, accountID string) ([]model.Transaction, error)
 }
