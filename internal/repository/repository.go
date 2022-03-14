@@ -10,6 +10,7 @@ type User interface {
 	GetUserByID(ctx context.Context, userID string) (model.User, error)
 	EditUserByID(ctx context.Context, user model.User) (model.User, error)
 	DeleteUserByID(ctx context.Context, user model.User) error
+	GetUserKeyByID(ctx context.Context, userID string) (string, error)
 }
 
 type Account interface {

@@ -63,3 +63,7 @@ func (u *userRepo) EditUserByID(ctx context.Context, user model.User) (model.Use
 func (u *userRepo) DeleteUserByID(ctx context.Context, user model.User) error {
 	panic("implement me")
 }
+
+func (u *userRepo) GetUserKeyByID(ctx context.Context, userID string) (string, error) {
+	panic("implement me")
+}

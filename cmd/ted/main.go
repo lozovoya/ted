@@ -6,6 +6,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"ted/internal/api/auth"
 	"ted/internal/api/httpserver"
 	v1 "ted/internal/api/v1"
 	"ted/internal/repository"
@@ -81,7 +82,14 @@ func execute(config Params) (err error) {
 	transactionRepo := repository.NewTransactionRepo(transactionPool, userRepo, accountRepo)
 	transactionController := v1.NewTransactionController(transactionRepo, lg, renderer)
 
-	router := httpserver.NewRouter(chi.NewRouter(), lg, userController, accoutController, transactionController)
+	authService := auth.NewAuthService(userRepo, lg)
+
+	router := httpserver.NewRouter(chi.NewRouter(),
+		lg,
+		userController,
+		accoutController,
+		transactionController,
+		authService)
 	server := http.Server{
 		Addr:        net.JoinHostPort(config.Host, config.Port),
 		Handler:     &router,
